@@ -5,7 +5,7 @@ Video Status
 </TITLE>
 </HEAD>
 <BODY bgcolor = wheat >
-<H2>Display Members of a Video Store</H2>
+<H2>Display Members of a Library</H2>
 <HR height=8>
 <P>
 
@@ -19,7 +19,9 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "USERNAME", "PASSWORD")or
   mysql_select_db("DATABASE") or die("Unable to select the database");
 
 /* Access the VIDEOFORRENT table */
- $result = mysql_query("Select * from Member"); 
+//im not sure i understand this line
+ $result = mysql_query("Select * from Patron");
+ //$result = mysql_query("Select * from Member"); 
 
 ?>
 
@@ -55,7 +57,7 @@ mysql_close($link);
 
 <BR>
 <BR>
-<a href = videostore.html>Return to Main Web Page</a>
+<a href = library.html>Return to Main Web Page</a>
 
 </BODY>
 </HTML>
