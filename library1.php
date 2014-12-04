@@ -6,7 +6,7 @@
 <BODY bgcolor = wheat>
 <H2><CENTER>Display Videos of a selected Status
 </CENTER></H2>
-<FORM METHOD="post" action="videostore11.php">
+<FORM METHOD="post" action="library11.php">
 <P>
 <CENTER>
 
@@ -20,7 +20,7 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "USERNAME", "PASSWORD") or
 /* Select MySQL database */
   mysql_select_db("DATABASE") or die("Unable to select the database");
 
-$res = mysql_query("Select distinct status from VideoForRent");
+$res = mysql_query("Select distinct status from Library");
 
 $num = mysql_numrows($res);
 
