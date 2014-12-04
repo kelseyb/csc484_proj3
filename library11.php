@@ -11,7 +11,7 @@ Video Status
 
 <?php
 $status = $_POST['status'];
-echo "<H2>Videos $status</H2>";
+echo "<H2>Library $status</H2>";
 
 /* Connect to MySQL */ 
 $link = mysql_connect ("Services1.mcs.sdsmt.edu", "USERNAME", "PASSWORD") or
@@ -21,8 +21,10 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "USERNAME", "PASSWORD") or
   mysql_select_db("DATABASE") or die("Unable to select the database");
 
 /* Access the VIDEOFORRENT table */
- $result = mysql_query("Select videoNo, title, category from VideoForRent, Video
-     where Video.CatalogID = VideoForRent.CatalogID AND status = '$status'");
+//this may be horribly wrong
+  $result = mysql_query("Select loanNo, title, authorName FROM Loan, Book, Author WHERE status = '$status'");
+// $result = mysql_query("Select videoNo, title, category from VideoForRent, Video
+//     where Video.CatalogID = VideoForRent.CatalogID AND status = '$status'");
 
 ?>
 
@@ -57,6 +59,6 @@ mysql_close($link);
 </TABLE>
 <BR>
 <BR>
-<a href = videostore.html>Return to Main Web Page</a>
+<a href = library.html>Return to Main Web Page</a>
 </BODY>
 </HTML>
