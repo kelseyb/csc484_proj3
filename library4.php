@@ -13,8 +13,6 @@
 
 <?php
 /* Connect to MySQL */
-
-//this probably needs fixed
 $link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me")or
   die("Unable to connect");
 
@@ -97,8 +95,6 @@ elseif (isset($_POST['search']))
 	
    $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE title LIKE '%$title%' AND copyID > $id"; 
 
-   //$query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronName LIKE '%$name%' AND patronID > $id";
-   //$query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE FNAME LIKE '%$fname%' AND LNAME LIKE '%$lname%' AND MEMBERID > $id";
    $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
    if ($row[0] > 0)
@@ -108,7 +104,7 @@ elseif (isset($_POST['search']))
 	   $author = $row[2]; 
 	   $libName = $row[3];
 	   
-	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
+	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; /*mebe*/
 	   $res1 = mysql_query($q2);
 	   $row1 = mysql_fetch_row($res1);
 	   if($row1[0]<0)
@@ -150,68 +146,38 @@ elseif (isset($_POST['loan']))
      $query = "INSERT INTO Loan(loanNo, copyNo, patronNo, checkOutDate, dueDate) VALUES('$loanNo', '$copyNo', '$patronNo', '$checkOutDate', '$dueDate')"; 
    
      $query = "INSERT INTO Patron (patronID, patronName, patronType) VALUES('$id', '$name', '$type')";
-     //$query = "INSERT INTO Member (MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO) VALUES('$id','$fname','$lname','$address','$djoined','$phoneno')";
      $res1 = mysql_query($query);
      $message = "*****Record added*****";
    }
 }
 
-elseif (isset($_POST['delete']))
-{
-   //$query = "DELETE FROM Member WHERE MEMBERID = $id";
-   $query = "DELETE FROM Patron WHERE patronID = $id";
-   $res = mysql_query($query);
-   $message = "*****Record deleted*****";
-}
-
-elseif (isset($_POST['update']))
-{
-   $name = $_POST['name'];
-   $type = $_POST['type'];
- //  $fname = $_POST['fname'];
-	// $lname = $_POST['lname'];
- //  $address = $_POST['address'];
- //  $djoined = $_POST['djoined'];
- //  $phoneno = $_POST['phoneno'];
- 
-  $query = "UPDATE Patron SET patronName='$name', patronType='$type' WHERE patronID = $id";
-   //$query = "UPDATE Member SET FNAME='$fname', LNAME='$lname', ADDRESS='$address', DATEJOINED='$djoined', PHONENO='$phoneno' WHERE MEMBERID = $id";
-   $res = mysql_query($query);
-   $message = "*****Record updated*****";
-}
-
-$name = trim($name);
-$type = trim($type);
-// $fname = trim($fname);
-// $lname = trim($lname);
-// $address = trim($address);
-// $djoined = trim($djoined);
-// $phoneno = trim($phoneno);
+//$name = trim($name);
+//$type = trim($type);
 
 mysql_close($link);
 ?>
 
-<BR> Patron ID:
-<BR><INPUT TYPE="TEXT" NAME="id"
-    <?php echo "VALUE=\"$id\"" ?>>
+<BR> Copy Number:
+<BR><INPUT TYPE="TEXT" NAME="copyNo"
+    <?php echo "VALUE=\"$id\"" ?>
 <BR>
-<BR> Name:
-<BR><INPUT TYPE="TEXT" NAME="name"
-    <?php echo "VALUE=\"$name\"" ?>>
+<BR> Title:
+<BR><INPUT TYPE="TEXT" NAME="title"
+    <?php echo "VALUE=\"$title\"" ?>
 <BR>
-<BR> Type:
+<BR> Author:
 <BR><INPUT TYPE="TEXT" NAME="type"
-    <?php echo "VALUE=\"$type\"" ?>>
+    <?php echo "VALUE=\"$authorName\"" ?>
 <BR>
 <BR>
 
-<INPUT TYPE="SUBMIT" NAME="left"     VALUE="<">
-<INPUT TYPE="SUBMIT" NAME="right"     VALUE=">">
-<INPUT TYPE="SUBMIT" NAME="search"     VALUE="Search">
+<INPUT TYPE="SUBMIT" NAME="left" VALUE="<">
+<INPUT TYPE="SUBMIT" NAME="right" VALUE=">">
+<INPUT TYPE="SUBMIT" NAME="search" VALUE="Search">
 
 <BR>
 <BR>
-<INPUT TYPE="SUBMIT" NAME="loan"     VALUE="Loan">
+<INPUT TYPE="SUBMIT" NAME="loan" VALUE="Loan">
 
 <?php
 if (isset($_POST['message']))

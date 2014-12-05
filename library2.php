@@ -9,26 +9,18 @@ Library Status
 <HR height=8>
 <P>
 
-<?php
-
-/* Connect to MySQL */ 
-$link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me")or
-  die("Unable to connect");
-
-/* Select the database */
-  mysql_select_db("db_7032956f14") or die("Unable to select the database");
-
-/* Access the VIDEOFORRENT table */
-//im not sure i understand this line
- $result = mysql_query("Select * from Patron");
- //$result = mysql_query("Select * from Member"); 
-
-?>
-
 <TABLE Border="1">
 <TR>
 
 <?php
+/* Connect to MySQL */ 
+$link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me")or
+  die("Unable to connect");
+
+  mysql_select_db("db_7032956f14") or die("Unable to select the database");
+
+ $result = mysql_query("Select * from Patron");
+
 /* Fetch and display the attribute names */
 while ($field=mysql_fetch_field($result))
 {
@@ -40,6 +32,7 @@ echo "</TR>";
 
 /* Fetch and displays each row of $result */ 
 if($result)
+{
    while($row=mysql_fetch_row($result))
    {
       echo "<TR>";
@@ -49,6 +42,7 @@ if($result)
       }
       echo "</TR>\n";
    }
+}
 
 mysql_close($link);
 ?>
