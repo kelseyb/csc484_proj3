@@ -4,7 +4,7 @@
 </HEAD>
 
 <BODY bgcolor = wheat>
-<H2><CENTER>Display Books
+<H2><CENTER>Display Loaned Books
 </CENTER></H2>
 <FORM METHOD="post" action="library11.php">
 <P>
