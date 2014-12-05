@@ -32,68 +32,128 @@ else
 
 if (isset($_POST['left']))
 {
+  $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo DECS";
 
-  $query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronID < $id ORDER BY patronID DESC";
-/*
-   $query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE MEMBERID < $id ORDER BY MEMBERID DESC";
-*/
-   $res = mysql_query($query);
+   $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
+   
    if ($row[0] > 0)
    {
-       $id      = $row[0];
-       $name   = $row[1];
-       $type   = $row[2];
+       $id = $row[0]; //copyNo
+       $title = $row[1];
+	   $author = $row[2]; 
+	   $libName = $row[3];
+	   
+	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
+	   $res1 = mysql_query($q2);
+	   $row1 = mysql_fetch_row($res1);
+	   if($row1[0]<0)
+	   {
+	     $avaiabile = "true";
+		 $patronID = 0;
+	   }
+	   else
+	   {
+	     $available = "false";
+		 $patronID = $row1[1];
+	   }
     }
 }
 
 elseif (isset($_POST['right']))
 {
-   $query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronID < $id ORDER BY patronID DESC";
-   //$query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE MEMBERID > $id ORDER BY MEMBERID ASC";
-   $res = mysql_query($query);
+   $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo ASC";
+
+   $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
+   
    if ($row[0] > 0)
    {
-       $id      = $row[0];
-       $name   = $row[1];
-       $type   = $row[2];
+       $id = $row[0]; //copyNo
+       $title = $row[1];
+	   $author = $row[2]; 
+	   $libName = $row[3];
+	   
+	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
+	   $res1 = mysql_query($q2);
+	   $row1 = mysql_fetch_row($res1);
+	   if($row1[0]<0)
+	   {
+	     $avaiabile = "true";
+		 $patronID = 0;
+	   }
+	   else
+	   {
+	     $available = "false";
+		 $patronID = $row1[1];
+	   }
     }
 }
 
 elseif (isset($_POST['search']))
 {
    $id = 0;
-   //??
-   $name = $_POSN['name']
-   //$fname = $_POST['fname'];
-	//$lname = $_POST['lname'];
-   $query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronName LIKE '%$name%' AND patronID > $id";
+   $title = $_POST['title']
+	
+   $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE title LIKE '%$title%' AND copyID > $id"; 
+
+   //$query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronName LIKE '%$name%' AND patronID > $id";
    //$query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE FNAME LIKE '%$fname%' AND LNAME LIKE '%$lname%' AND MEMBERID > $id";
-   $res = mysql_query($query);
+   $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
    if ($row[0] > 0)
    {
-       $id      = $row[0];
-       $name   = $row[1];
-       $type   = $row[2];
+       $id = $row[0]; //copyNo
+       $title = $row[1];
+	   $author = $row[2]; 
+	   $libName = $row[3];
+	   
+	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
+	   $res1 = mysql_query($q2);
+	   $row1 = mysql_fetch_row($res1);
+	   if($row1[0]<0)
+	   {
+	     $avaiabile = "true";
+		 $patronID = 0;
+	   }
+	   else
+	   {
+	     $available = "false";
+		 $patronID = $row1[1];
+	   }
     }
 }
 
-elseif (isset($_POST['add']))
+elseif (isset($_POST['loan']))
 {
-   $name = $_POST['name'];
-   $type = $_POST['type'];
-   //$fname = $_POST['fname'];
-   //$lname = $_POST['lname'];
-   //$address = $_POST['address'];
-   //$djoined = $_POST['djoined'];
-   //$phoneno = $_POST['phoneno'];
+   $loanNo = 12; //i dunno;
+   $copyNo = $_POST['copyNo'];
+   $checkOutDate = date("Y-m-d");
+   $dueDate = date("Y-m-d", strtotime('+1 month'));
+   $available = $_POST;
    
-   $query = "INSERT INTO Patron (patronID, patronName, patronType) VALUES('$id', '$name', '$type')";
-   //$query = "INSERT INTO Member (MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO) VALUES('$id','$fname','$lname','$address','$djoined','$phoneno')";
-   $res = mysql_query($query);
-   $message = "*****Record added*****";
+   /*check if patron has three books*/
+   $q1 = "SELECT COUNT(*) FROM Loans WHERE patronID = $patronID";
+   
+   $res = mysql_query($q1);
+   $row = mysql_fetch_row($res);
+   if ($row[0] > 2) //i think that's right.
+   {
+     $message = "*****Patron has 3 books checked out already*****";
+   }
+   else if($available = "false")
+   {
+     $message = "*****Book is already checked out*****";
+   }
+   else
+   {
+     $query = "INSERT INTO Loan(loanNo, copyNo, patronNo, checkOutDate, dueDate) VALUES('$loanNo', '$copyNo', '$patronNo', '$checkOutDate', '$dueDate')"; 
+   
+     $query = "INSERT INTO Patron (patronID, patronName, patronType) VALUES('$id', '$name', '$type')";
+     //$query = "INSERT INTO Member (MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO) VALUES('$id','$fname','$lname','$address','$djoined','$phoneno')";
+     $res1 = mysql_query($query);
+     $message = "*****Record added*****";
+   }
 }
 
 elseif (isset($_POST['delete']))
@@ -151,9 +211,7 @@ mysql_close($link);
 
 <BR>
 <BR>
-<INPUT TYPE="SUBMIT" NAME="add"     VALUE="Add">
-<INPUT TYPE="SUBMIT" NAME="update"     VALUE="Update">
-<INPUT TYPE="SUBMIT" NAME="delete"     VALUE="Delete">
+<INPUT TYPE="SUBMIT" NAME="loan"     VALUE="Loan">
 
 <?php
 if (isset($_POST['message']))
