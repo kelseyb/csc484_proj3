@@ -1,12 +1,12 @@
 <HTML>
 <HEAD>
-<TITLE>Add a New Patron</TITLE>
+<TITLE>Update Books</TITLE>
 </HEAD>
 
 <BODY bgcolor = wheat>
-<H2><CENTER>Add a New Patron
+<H2><CENTER>Update Books
 </CENTER></H2>
-<FORM METHOD="post" action="library3.php">
+<FORM METHOD="post" action="library4.php">
 <P>
 <HR>
 <CENTER>
@@ -28,6 +28,56 @@ if (!isset($_POST['id']))
 else
 {
    $id = $_POST['id'];
+}
+
+if (isset($_POST['left']))
+{
+
+  $query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronID < $id ORDER BY patronID DESC";
+/*
+   $query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE MEMBERID < $id ORDER BY MEMBERID DESC";
+*/
+   $res = mysql_query($query);
+   $row = mysql_fetch_row($res);
+   if ($row[0] > 0)
+   {
+       $id      = $row[0];
+       $name   = $row[1];
+       $type   = $row[2];
+    }
+}
+
+elseif (isset($_POST['right']))
+{
+   $query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronID < $id ORDER BY patronID DESC";
+   //$query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE MEMBERID > $id ORDER BY MEMBERID ASC";
+   $res = mysql_query($query);
+   $row = mysql_fetch_row($res);
+   if ($row[0] > 0)
+   {
+       $id      = $row[0];
+       $name   = $row[1];
+       $type   = $row[2];
+    }
+}
+
+elseif (isset($_POST['search']))
+{
+   $id = 0;
+   //??
+   $name = $_POSN['name']
+   //$fname = $_POST['fname'];
+	//$lname = $_POST['lname'];
+   $query = "SELECT patronID, patronName, patronType, FROM Patron WHERE patronName LIKE '%$name%' AND patronID > $id";
+   //$query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE FNAME LIKE '%$fname%' AND LNAME LIKE '%$lname%' AND MEMBERID > $id";
+   $res = mysql_query($query);
+   $row = mysql_fetch_row($res);
+   if ($row[0] > 0)
+   {
+       $id      = $row[0];
+       $name   = $row[1];
+       $type   = $row[2];
+    }
 }
 
 elseif (isset($_POST['add']))
@@ -92,7 +142,13 @@ mysql_close($link);
 <BR> Type:
 <BR><INPUT TYPE="TEXT" NAME="type"
     <?php echo "VALUE=\"$type\"" ?>>
-	
+<BR>
+<BR>
+
+<INPUT TYPE="SUBMIT" NAME="left"     VALUE="<">
+<INPUT TYPE="SUBMIT" NAME="right"     VALUE=">">
+<INPUT TYPE="SUBMIT" NAME="search"     VALUE="Search">
+
 <BR>
 <BR>
 <INPUT TYPE="SUBMIT" NAME="add"     VALUE="Add">

@@ -1,11 +1,11 @@
 <HTML>
 <HEAD>
 <TITLE>
-Book Status
+Library Status
 </TITLE>
 </HEAD>
 <BODY bgcolor = wheat >
-<H2>Display Members of a Library</H2>
+<H2>Display Patrons of a Library</H2>
 <HR height=8>
 <P>
 

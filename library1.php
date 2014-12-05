@@ -4,7 +4,7 @@
 </HEAD>
 
 <BODY bgcolor = wheat>
-<H2><CENTER>Display Videos of a selected Status
+<H2><CENTER>Display Books
 </CENTER></H2>
 <FORM METHOD="post" action="library11.php">
 <P>
@@ -18,7 +18,7 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "USERNAME", "PASSWORD") or
   die("Unable to connect");
 
 /* Select MySQL database */
-  mysql_select_db("DATABASE") or die("Unable to select the database");
+mysql_select_db("DATABASE") or die("Unable to select the database");
 
 $res = mysql_query("Select distinct status from Library");
 
@@ -28,7 +28,7 @@ $num = mysql_numrows($res);
 ?>
 
 <TABLE>
-<TR><TH><strong> Select Status </strong></TH></TR>
+<TR><TH><strong> Select Patron </strong></TH></TR>
 <TR><TD valign = top>
 <SELECT size=<?php echo $num;?> id=status name=status>
 <?php
