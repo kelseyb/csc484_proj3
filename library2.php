@@ -12,11 +12,11 @@ Library Status
 <?php
 
 /* Connect to MySQL */ 
-$link = mysql_connect ("Services1.mcs.sdsmt.edu", "USERNAME", "PASSWORD")or
+$link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me")or
   die("Unable to connect");
 
 /* Select the database */
-  mysql_select_db("DATABASE") or die("Unable to select the database");
+  mysql_select_db("db_7032956f14") or die("Unable to select the database");
 
 /* Access the VIDEOFORRENT table */
 //im not sure i understand this line
