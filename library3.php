@@ -3,7 +3,7 @@
 <TITLE>Add a New Patron</TITLE>
 </HEAD>
 
-<BODY bgcolor = wheat>
+<BODY bgcolor = lavender>
 <H2><CENTER>Add a New Patron
 </CENTER></H2>
 <FORM METHOD="post" action="library3.php">
@@ -23,12 +23,13 @@ if (!isset($_POST['id']))
 {
    $id=0;
 }
+
 else
 {
    $id = $_POST['id'];
 }
 
-elseif (isset($_POST['add']))
+if (isset($_POST['add']))
 {
    $name = $_POST['name'];
    $type = $_POST['type'];
@@ -44,7 +45,7 @@ elseif (isset($_POST['delete']))
    $res = mysql_query($query);
    $message = "*****Record deleted*****";
 }
-
+/*
 elseif (isset($_POST['update']))
 {
    $name = $_POST['name'];
@@ -54,6 +55,7 @@ elseif (isset($_POST['update']))
    $res = mysql_query($query);
    $message = "*****Record updated*****";
 }
+*/
 
 $name = trim($name);
 $type = trim($type);
@@ -63,20 +65,19 @@ mysql_close($link);
 
 <BR> Patron ID:
 <BR><INPUT TYPE="TEXT" NAME="id"
-    <?php echo "VALUE=\"$id\"" ?>
+    <?php echo "VALUE=\"$id\"" ?>>
 <BR>
 <BR> Name:
 <BR><INPUT TYPE="TEXT" NAME="name"
-    <?php echo "VALUE=\"$name\"" ?>
+    <?php echo "VALUE=\"$name\"" ?>>
 <BR>
 <BR> Type:
 <BR><INPUT TYPE="TEXT" NAME="type"
-    <?php echo "VALUE=\"$type\"" ?>
+    <?php echo "VALUE=\"$type\"" ?>>
 	
 <BR>
 <BR>
 <INPUT TYPE="SUBMIT" NAME="add"     VALUE="Add">
-<INPUT TYPE="SUBMIT" NAME="update"     VALUE="Update">
 <INPUT TYPE="SUBMIT" NAME="delete"     VALUE="Delete">
 
 <?php
@@ -93,4 +94,4 @@ if (isset($_POST['message']))
 </CENTER>
 </FORM>
 </BODY>
-<HTML>
+</HTML>

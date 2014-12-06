@@ -3,7 +3,7 @@
 <TITLE>Test PHP-MySQL-2008</TITLE>
 </HEAD>
 
-<BODY bgcolor = wheat>
+<BODY bgcolor = lavender>
 <H2><CENTER>Display Loaned Books
 </CENTER></H2>
 <FORM METHOD="post" action="library11.php">
@@ -20,7 +20,8 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me") or
 /* Select MySQL database */
 mysql_select_db("db_7032956f14") or die("Unable to select the database");
 
-$res = mysql_query("Select distinct status from Library");
+$res = mysql_query("SELECT DISTINCT patronName FROM Patron");
+//$res = mysql_query("SELECT DISTINCT patronID FROM Patron");
 
 $num = mysql_numrows($res);
 
@@ -50,6 +51,7 @@ mysql_close($link);
 <INPUT TYPE="SUBMIT" VALUE="Execute SQL statement...">
 <INPUT TYPE="RESET"  VALUE="Clear...">
 <P>
+<a href = library.html>Return to Main Web Page</a>
 </CENTER>
 </FORM>
 </BODY>

@@ -4,7 +4,7 @@
 Library Status
 </TITLE>
 </HEAD>
-<BODY bgcolor = wheat >
+<BODY bgcolor = lavender >
 <H2>Display Patrons of a Library</H2>
 <HR height=8>
 <P>

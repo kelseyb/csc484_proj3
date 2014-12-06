@@ -3,7 +3,7 @@
 <TITLE>Update Books</TITLE>
 </HEAD>
 
-<BODY bgcolor = wheat>
+<BODY bgcolor = lavender>
 <H2><CENTER>Update Books
 </CENTER></H2>
 <FORM METHOD="post" action="library4.php">
@@ -30,7 +30,7 @@ else
 
 if (isset($_POST['left']))
 {
-  $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo DECS";
+   $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo DECS";
 
    $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
@@ -71,7 +71,7 @@ elseif (isset($_POST['right']))
        $title = $row[1];
 	   $author = $row[2]; 
 	   $libName = $row[3];
-	   
+	  
 	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
 	   $res1 = mysql_query($q2);
 	   $row1 = mysql_fetch_row($res1);
@@ -85,13 +85,14 @@ elseif (isset($_POST['right']))
 	     $available = "false";
 		 $patronID = $row1[1];
 	   }
+	   
     }
 }
 
 elseif (isset($_POST['search']))
 {
    $id = 0;
-   $title = $_POST['title']
+   $title = $_POST['title'];
 	
    $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE title LIKE '%$title%' AND copyID > $id"; 
 
@@ -159,15 +160,27 @@ mysql_close($link);
 
 <BR> Copy Number:
 <BR><INPUT TYPE="TEXT" NAME="copyNo"
-    <?php echo "VALUE=\"$id\"" ?>
+    <?php echo "VALUE=\"$id\"" ?>>
 <BR>
 <BR> Title:
 <BR><INPUT TYPE="TEXT" NAME="title"
-    <?php echo "VALUE=\"$title\"" ?>
+    <?php echo "VALUE=\"$title\"" ?>>
 <BR>
 <BR> Author:
+<BR><INPUT TYPE="TEXT" NAME="authorName"
+    <?php echo "VALUE=\"$author\"" ?>>
+<BR>
+<BR> Library:
 <BR><INPUT TYPE="TEXT" NAME="type"
-    <?php echo "VALUE=\"$authorName\"" ?>
+    <?php echo "VALUE=\"$libName\"" ?>>
+<BR>
+<BR> Available:
+<BR><INPUT TYPE="TEXT" NAME="type"
+    <?php echo "VALUE=\"$available\"" ?>>
+<BR>
+<BR> PatronID:
+<BR><INPUT TYPE="TEXT" NAME="patronID"
+    <?php echo "VALUE=\"$patronID\"" ?>>
 <BR>
 <BR>
 
@@ -193,4 +206,4 @@ if (isset($_POST['message']))
 </CENTER>
 </FORM>
 </BODY>
-<HTML>
+</HTML>
