@@ -19,29 +19,28 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me")or
 /* Select MySQL database */
   mysql_select_db("db_7032956f14") or die("Unable to select the database");
 
-if (!isset($_POST['id']))
+if (!isset($_POST['patronID']))
 {
-   $id=0;
+   $patronID=0;
 }
-
 else
 {
-   $id = $_POST['id'];
+   $patronID = $_POST['patronID'];
 }
 
 if (isset($_POST['add']))
 {
-   $name = $_POST['name'];
-   $type = $_POST['type'];
+   $patronName = $_POST['patronName'];
+   $patronType = $_POST['patronType'];
    
-   $query = "INSERT INTO Patron (patronID, patronName, patronType) VALUES('$id', '$name', '$type')";
+   $query = "INSERT INTO Patron VALUES('$patronID', '$patronName', '$patronType')";
    $res = mysql_query($query);
    $message = "*****Record added*****";
 }
 
 elseif (isset($_POST['delete']))
 {
-   $query = "DELETE FROM Patron WHERE patronID = $id";
+   $query = "DELETE FROM Patron WHERE patronID = $patronID";
    $res = mysql_query($query);
    $message = "*****Record deleted*****";
 }
@@ -57,23 +56,23 @@ elseif (isset($_POST['update']))
 }
 */
 
-$name = trim($name);
-$type = trim($type);
+$patronName = trim($patronName);
+$patronType = trim($patronType);
 
 mysql_close($link);
 ?>
 
 <BR> Patron ID:
-<BR><INPUT TYPE="TEXT" NAME="id"
-    <?php echo "VALUE=\"$id\"" ?>>
+<BR><INPUT TYPE="TEXT" NAME="patronID"
+    <?php echo "VALUE=\"$patronID\"" ?>>
 <BR>
 <BR> Name:
-<BR><INPUT TYPE="TEXT" NAME="name"
-    <?php echo "VALUE=\"$name\"" ?>>
+<BR><INPUT TYPE="TEXT" NAME="patronName"
+    <?php echo "VALUE=\"$patronName\"" ?>>
 <BR>
 <BR> Type:
-<BR><INPUT TYPE="TEXT" NAME="type"
-    <?php echo "VALUE=\"$type\"" ?>>
+<BR><INPUT TYPE="TEXT" NAME="patronType"
+    <?php echo "VALUE=\"$patronType\"" ?>>
 	
 <BR>
 <BR>

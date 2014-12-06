@@ -26,7 +26,9 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me") or
    //$patronName = $row[0];
 
 
+   //there's something wrong with this query, i think.
   $result = mysql_query("Select loanNo, title, authorName FROM Loan, Book, Author, Patron WHERE patronName = '$status'");
+  //WHERE loanNo.patronID = Patron.patronID AND Book.authorNo = Author.authorNo AND patronName = '$status'");
 // $result = mysql_query("Select videoNo, title, category from VideoForRent, Video
 //     where Video.CatalogID = VideoForRent.CatalogID AND status = '$status'");
 

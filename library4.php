@@ -30,7 +30,7 @@ else
 
 if (isset($_POST['left']))
 {
-   $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo DECS";
+   $q1 = "SELECT copyNo, title, authorName, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo DECS";
 
    $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
@@ -39,7 +39,7 @@ if (isset($_POST['left']))
    {
        $id = $row[0]; //copyNo
        $title = $row[1];
-	   $author = $row[2]; 
+	   $authorName = $row[2]; 
 	   $libName = $row[3];
 	   
 	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
@@ -60,7 +60,7 @@ if (isset($_POST['left']))
 
 elseif (isset($_POST['right']))
 {
-   $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo ASC";
+   $q1 = "SELECT copyNo, title, authorName, libName FROM CopyBook, Book, Author, Library WHERE copyNo <$id ORDER BY copyNo ASC";
 
    $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
@@ -69,7 +69,7 @@ elseif (isset($_POST['right']))
    {
        $id = $row[0]; //copyNo
        $title = $row[1];
-	   $author = $row[2]; 
+	   $authorName = $row[2]; 
 	   $libName = $row[3];
 	  
 	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; //mebe
@@ -94,7 +94,7 @@ elseif (isset($_POST['search']))
    $id = 0;
    $title = $_POST['title'];
 	
-   $q1 = "SELECT copyNo, title, author, libName FROM CopyBook, Book, Author, Library WHERE title LIKE '%$title%' AND copyID > $id"; 
+   $q1 = "SELECT copyNo, title, authorName, libName FROM CopyBook, Book, Author, Library WHERE title LIKE '%$title%' AND copyID > $id"; 
 
    $res = mysql_query($q1);
    $row = mysql_fetch_row($res);
@@ -102,7 +102,7 @@ elseif (isset($_POST['search']))
    {
        $id = $row[0]; //copyNo
        $title = $row[1];
-	   $author = $row[2]; 
+	   $authorName = $row[2]; 
 	   $libName = $row[3];
 	   
 	   $q2 = "SELECT copyNo, patronID FROM loan, WHERE copyNo = $id"; /*mebe*/
@@ -168,7 +168,7 @@ mysql_close($link);
 <BR>
 <BR> Author:
 <BR><INPUT TYPE="TEXT" NAME="authorName"
-    <?php echo "VALUE=\"$author\"" ?>>
+    <?php echo "VALUE=\"$authorName\"" ?>>
 <BR>
 <BR> Library:
 <BR><INPUT TYPE="TEXT" NAME="type"
