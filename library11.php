@@ -20,17 +20,9 @@ $link = mysql_connect ("Services1.mcs.sdsmt.edu", "s7032956f14", "change_me") or
 /* Select the database */
   mysql_select_db("db_7032956f14") or die("Unable to select the database");
 
-  //$r1 = mysql_query("Select patronID FROM Patron WHERE patronName = '$status'");
-
-   //$row = mysql_fetch_row($r1);
-   //$patronName = $row[0];
-
-
-   //there's something wrong with this query, i think.
-  $result = mysql_query("Select loanNo, title, authorName FROM Loan, Book, Author, Patron WHERE patronName = '$status'");
-  //WHERE loanNo.patronID = Patron.patronID AND Book.authorNo = Author.authorNo AND patronName = '$status'");
-// $result = mysql_query("Select videoNo, title, category from VideoForRent, Video
-//     where Video.CatalogID = VideoForRent.CatalogID AND status = '$status'");
+  $result = mysql_query("Select loanNo, title, authorName from Loan, CopyBook, Patron, Book, Author
+WHERE Loan.patronNo = Patron.patronNo AND CopyBook.copyNo = Loan.copyNo AND
+Book.bookNo = CopyBook.bookNo AND Book.authorNo = Author.authorNo AND patronName = '$status'");
 
 ?>
 
@@ -61,38 +53,8 @@ if($result)
    }
 }
 
-/*
-if (isset($_POST['search']))
-{
-   $id = 0;
-   $title = $_POSN['title']\
-	$query = "SELECT copyID, title FROM CopyBook, Book WHERE title LIKE '%$title%' AND copyID > $id"; //this doesnt make sense
-   //$query = "SELECT patronID, patronName, patronType FROM Patron WHERE patronName LIKE '%$name%' AND patronID > $id";
-   //$query = "SELECT MEMBERID, FNAME, LNAME, ADDRESS, DATEJOINED, PHONENO FROM Member WHERE FNAME LIKE '%$fname%' AND LNAME LIKE '%$lname%' AND MEMBERID > $id";
-   $res = mysql_query($query);
-   $row = mysql_fetch_row($res);
-   if ($row[0] > 0)
-   {
-       $id      = $row[0];
-       $title   = $row[1];
-    }
-}
-*/
-
 mysql_close($link);
 ?>
-
-
-<BR>
-
-<?php
-if (isset($_POST['message']))
-{
-   echo "<BR><BR>$message";
-}
-?>
-
-<BR>
 
 </TABLE>
 <BR>
