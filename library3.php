@@ -38,24 +38,6 @@ if (isset($_POST['add']))
    $message = "*****Record added*****";
 }
 
-elseif (isset($_POST['delete']))
-{
-   $query = "DELETE FROM Patron WHERE patronID = $patronID";
-   $res = mysql_query($query);
-   $message = "*****Record deleted*****";
-}
-/*
-elseif (isset($_POST['update']))
-{
-   $name = $_POST['name'];
-   $type = $_POST['type'];
- 
-  $query = "UPDATE Patron SET patronName='$name', patronType='$type' WHERE patronID = $id";
-   $res = mysql_query($query);
-   $message = "*****Record updated*****";
-}
-*/
-
 $patronName = trim($patronName);
 $patronType = trim($patronType);
 
@@ -77,7 +59,6 @@ mysql_close($link);
 <BR>
 <BR>
 <INPUT TYPE="SUBMIT" NAME="add"     VALUE="Add">
-<INPUT TYPE="SUBMIT" NAME="delete"     VALUE="Delete">
 
 <?php
 if (isset($_POST['message']))
